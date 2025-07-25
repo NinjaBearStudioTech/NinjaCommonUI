@@ -17,20 +17,19 @@ void UNinjaCommonActivatableWidget::NativeDestruct()
 
 TOptional<FUIInputConfig> UNinjaCommonActivatableWidget::GetDesiredInputConfig() const
 {
-	// Common UI. Sigh... >.<
 	const bool bHideCursorDuringViewportCapture = !bShowMouseCursor;
 	
 	switch (InputConfig)
 	{
-	case ENinjaWidgetInputMode::GameAndMenu:
-		return FUIInputConfig(ECommonInputMode::All, GameMouseCaptureMode, bHideCursorDuringViewportCapture);
-	case ENinjaWidgetInputMode::Game:
-		return FUIInputConfig(ECommonInputMode::Game, GameMouseCaptureMode, bHideCursorDuringViewportCapture);
-	case ENinjaWidgetInputMode::Menu:
-		return FUIInputConfig(ECommonInputMode::Menu, EMouseCaptureMode::NoCapture, bHideCursorDuringViewportCapture);
-	case ENinjaWidgetInputMode::Default:
-	default:
-		return TOptional<FUIInputConfig>();
+		case ENinjaWidgetInputMode::GameAndMenu:
+			return FUIInputConfig(ECommonInputMode::All, GameMouseCaptureMode, bHideCursorDuringViewportCapture);
+		case ENinjaWidgetInputMode::Game:
+			return FUIInputConfig(ECommonInputMode::Game, GameMouseCaptureMode, bHideCursorDuringViewportCapture);
+		case ENinjaWidgetInputMode::Menu:
+			return FUIInputConfig(ECommonInputMode::Menu, GameMouseCaptureMode, bHideCursorDuringViewportCapture);
+		case ENinjaWidgetInputMode::Default:
+		default:
+			return TOptional<FUIInputConfig>();
 	}
 }
 

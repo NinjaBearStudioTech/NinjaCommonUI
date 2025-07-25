@@ -2,6 +2,7 @@
 #include "GameFramework/NinjaCommonHUD.h"
 
 #include "NinjaCommonUILog.h"
+#include "NinjaCommonUITags.h"
 #include "Blueprint/UserWidget.h"
 #include "UI/Widgets/NinjaCommonGameplayWidget.h"
 
@@ -70,15 +71,15 @@ void ANinjaCommonHUD::ShowInventory()
 		return;
 	}
 	
-	PushWidgetToStack(InventoryWidgetClass);
+	PushWidgetToStack(Tag_UI_Layer_Game, InventoryWidgetClass);
 }
 
-void ANinjaCommonHUD::PushWidgetToStack(const TSubclassOf<UCommonActivatableWidget>& WidgetClass)
+void ANinjaCommonHUD::PushWidgetToStack(const FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass)
 {
 	UNinjaCommonGameplayWidget* CurrentGameplayWidget = GetGameplayWidget();
 	if (IsValid(CurrentGameplayWidget) && IsValid(WidgetClass))
 	{
-		CurrentGameplayWidget->AddToStack(WidgetClass);
+		CurrentGameplayWidget->AddToStack(StackTag, WidgetClass);
 	}
 }
 

@@ -5,7 +5,6 @@
 #include "CommonActivatableWidget.h"
 #include "NinjaCommonActivatableWidget.generated.h"
 
-
 UENUM(BlueprintType)
 enum class ENinjaWidgetInputMode : uint8
 {

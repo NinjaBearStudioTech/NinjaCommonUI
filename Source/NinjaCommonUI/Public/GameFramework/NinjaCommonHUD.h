@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/HUD.h"
 #include "NinjaCommonHUD.generated.h"
 
@@ -30,12 +31,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
 	void ShowInventory();
-	
-	/**
-	 * Pushes a widget to the UI stack.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
-	virtual void PushWidgetToStack(const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
 
 	/**
 	 * Provides the Gameplay Widget instantiated by this HUD. 
@@ -71,6 +66,12 @@ protected:
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
 	virtual void ShowGameplayWidget();
+
+	/**
+	 * Pushes a widget to the UI stack, represented by the Gameplay Tag.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	virtual void PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
 	
 private:
 
