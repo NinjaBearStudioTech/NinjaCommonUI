@@ -63,24 +63,37 @@ void ANinjaCommonHUD::ShowGameplayWidget()
 	}
 }
 
-void ANinjaCommonHUD::ShowInventory()
+UCommonActivatableWidget* ANinjaCommonHUD::ShowInventory()
 {
 	if (!IsValid(InventoryWidgetClass))
 	{
 		CUI_LOG(Warning, "Inventory Widget is not set.");
-		return;
+		return nullptr;
 	}
 	
-	PushWidgetToStack(Tag_UI_Layer_Game, InventoryWidgetClass);
+	return PushWidgetToStack(Tag_UI_Layer_Game, InventoryWidgetClass);
 }
 
-void ANinjaCommonHUD::PushWidgetToStack(const FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass)
+UCommonActivatableWidget* ANinjaCommonHUD::ShowLoot()
+{
+	if (!IsValid(LootWidgetClass))
+	{
+		CUI_LOG(Warning, "Loot Widget is not set.");
+		return nullptr;
+	}
+	
+	return PushWidgetToStack(Tag_UI_Layer_Game, LootWidgetClass);
+}
+
+UCommonActivatableWidget* ANinjaCommonHUD::PushWidgetToStack(const FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass)
 {
 	UNinjaCommonGameplayWidget* CurrentGameplayWidget = GetGameplayWidget();
 	if (IsValid(CurrentGameplayWidget) && IsValid(WidgetClass))
 	{
-		CurrentGameplayWidget->AddToStack(StackTag, WidgetClass);
+		return CurrentGameplayWidget->AddToStack(StackTag, WidgetClass);
 	}
+
+	return nullptr;
 }
 
 UNinjaCommonGameplayWidget* ANinjaCommonHUD::GetGameplayWidget() const

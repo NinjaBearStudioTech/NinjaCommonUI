@@ -30,8 +30,15 @@ public:
 	 * Usually the widget is responsible for deactivating itself. 
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
-	void ShowInventory();
+	UCommonActivatableWidget* ShowInventory();
 
+	/**
+	 * Shows the Loot Window, instantiating one if necessary.
+	 * Usually the widget is responsible for deactivating itself. 
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UCommonActivatableWidget* ShowLoot();
+	
 	/**
 	 * Provides the Gameplay Widget instantiated by this HUD. 
 	 */
@@ -44,10 +51,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widgets")
 	TSubclassOf<UNinjaCommonGameplayWidget> GameplayWidgetClass;
 	
-	/** A widget representing the Inventory Window. */
+	/** The widget for the Inventory Window. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widgets")
 	TSubclassOf<UCommonActivatableWidget> InventoryWidgetClass;
 
+	/** The widget for the Loot Window. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widgets")
+	TSubclassOf<UCommonActivatableWidget> LootWidgetClass;
+	
 	/**
 	 * The HUD must be prepared to initialize the pawn after Begin Play.
 	 *
@@ -71,7 +82,7 @@ protected:
 	 * Pushes a widget to the UI stack, represented by the Gameplay Tag.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
-	virtual void PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
+	virtual UCommonActivatableWidget* PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
 	
 private:
 
