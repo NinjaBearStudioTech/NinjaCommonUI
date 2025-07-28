@@ -45,6 +45,16 @@ public:
 	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
 	UNinjaCommonGameplayWidget* GetGameplayWidget() const;
 
+	/**
+	 * Pushes a widget to the UI stack, represented by the Gameplay Tag.
+	 *
+	 * @param StackTag		The stack representing the UI Layer where the widget will be pushed.
+	 * @param WidgetClass	Widget class that will be pushed to the stack.
+	 * @return				The widget instance that has been pushed to the stack.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	virtual UCommonActivatableWidget* PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
+	
 protected:
 
 	/** The main widget for the Gameplay. Will provide the activatable stack. */
@@ -78,12 +88,6 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
 	virtual void ShowGameplayWidget();
 
-	/**
-	 * Pushes a widget to the UI stack, represented by the Gameplay Tag.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
-	virtual UCommonActivatableWidget* PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
-	
 private:
 
 	/** Current Gameplay Widget used in the game. */
