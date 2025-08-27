@@ -63,6 +63,17 @@ void ANinjaCommonHUD::ShowGameplayWidget()
 	}
 }
 
+UCommonActivatableWidget* ANinjaCommonHUD::ShowInGameMenu()
+{
+	if (!IsValid(InGameMenuClass))
+	{
+		CUI_LOG(Warning, "In-Game Menu Widget is not set.");
+		return nullptr;
+	}
+
+	return PushWidgetToStack(Tag_UI_Layer_Menu, InGameMenuClass);
+}
+
 UCommonActivatableWidget* ANinjaCommonHUD::ShowInventory()
 {
 	if (!IsValid(InventoryWidgetClass))
@@ -71,7 +82,18 @@ UCommonActivatableWidget* ANinjaCommonHUD::ShowInventory()
 		return nullptr;
 	}
 	
-	return PushWidgetToStack(Tag_UI_Layer_Game, InventoryWidgetClass);
+	return PushWidgetToStack(Tag_UI_Layer_Menu, InventoryWidgetClass);
+}
+
+UCommonActivatableWidget* ANinjaCommonHUD::ShowStorage()
+{
+	if (!IsValid(StorageWidgetClass))
+	{
+		CUI_LOG(Warning, "Storage Widget is not set.");
+		return nullptr;
+	}
+	
+	return PushWidgetToStack(Tag_UI_Layer_Game, StorageWidgetClass);
 }
 
 UCommonActivatableWidget* ANinjaCommonHUD::ShowLoot()
