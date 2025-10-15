@@ -24,6 +24,26 @@ void ANinjaCommonHUD::BeginPlay()
 	}	
 }
 
+void ANinjaCommonHUD::AddAsynchronousOperation(const FGameplayTag OperationTag)
+{
+	if (OperationTag.IsValid())
+	{
+		AsyncOperations.AddTag(OperationTag);
+		static constexpr bool bOperationRunning = true;
+		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
+	}
+}
+
+void ANinjaCommonHUD::RemoveAsynchronousOperation(const FGameplayTag OperationTag)
+{
+	if (OperationTag.IsValid())
+	{
+		AsyncOperations.RemoveTag(OperationTag);
+		const bool bOperationRunning = AsyncOperations.Num() > 0;
+		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
+	}
+}
+
 void ANinjaCommonHUD::HandleNewPawn(APawn* NewPawn)
 {
 	if (!IsValid(NewPawn))

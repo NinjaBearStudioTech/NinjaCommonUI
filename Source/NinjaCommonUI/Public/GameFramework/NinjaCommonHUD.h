@@ -16,15 +16,35 @@ class UCommonActivatableWidget;
 UCLASS(Abstract)
 class NINJACOMMONUI_API ANinjaCommonHUD : public AHUD
 {
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAsynchronousOperationNotificationStateChanged, FGameplayTagContainer, AsyncOperations, bool, bOperationRunning);
 	
 	GENERATED_BODY()
 
 public:
 
+	/** Notifies about asynchronous notifications that must be presented. */
+	UPROPERTY(BlueprintAssignable)
+	FAsynchronousOperationNotificationStateChanged OnAsynchronousOperationNotificationStateChanged;
+	
 	// -- Begin HUD implementation
 	virtual void BeginPlay() override;
 	// -- End HUD implementation	
 
+	/**
+	 * Registers an asynchronous operation, represented by its gameplay tag.
+	 * This will most likely result in something like a "progress icon" to be shown in the UI.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	void AddAsynchronousOperation(FGameplayTag OperationTag);
+
+	/**
+	 * Removes an asynchronous operation, represented by its gameplay tag.
+	 * If there are no operations left, then the UI should remove the "progress icon".
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	void RemoveAsynchronousOperation(FGameplayTag OperationTag);
+	
 	/**
 	 * Shows the In-Game Menu (or "Pause Menu"), usually containing options such as settings, quit, etc.
 	 * Usually the widget is responsible for deactivating itself.
@@ -112,6 +132,9 @@ protected:
 
 private:
 
+	/** All async operations happening. */
+	FGameplayTagContainer AsyncOperations = FGameplayTagContainer::EmptyContainer;
+	
 	/** Current Gameplay Widget used in the game. */
 	UPROPERTY(Transient)
 	TObjectPtr<UNinjaCommonGameplayWidget> GameplayWidget;	
