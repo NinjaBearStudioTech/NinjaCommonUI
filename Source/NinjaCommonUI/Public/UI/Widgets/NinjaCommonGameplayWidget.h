@@ -60,6 +60,13 @@ protected:
 	TObjectPtr<UCommonActivatableWidgetStack> MenuStack;
 
 	/**
+	 * Stack used to push dialogs that will be on top of any both gameplay and menu UIs.
+	 * This is where you'd add confirmation or error messages, the highest UI elements.
+	 */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UCommonActivatableWidgetStack> DialogStack;
+	
+	/**
 	 * Provides a stack related to a Gameplay Tag.
 	 */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic, Category = "Gameplay Widget", meta=(ForceAsFunction))
