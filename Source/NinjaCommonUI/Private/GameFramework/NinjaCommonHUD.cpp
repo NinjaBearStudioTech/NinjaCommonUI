@@ -83,6 +83,19 @@ void ANinjaCommonHUD::ShowGameplayWidget()
 	}
 }
 
+void ANinjaCommonHUD::ToggleActivatableWidget(TObjectPtr<UCommonActivatableWidget>& Widget, const TFunction<UCommonActivatableWidget*()>& ActivationFunction)
+{
+	if (IsValid(Widget))
+	{
+		Widget->DeactivateWidget();
+		Widget->RemoveFromParent();
+		Widget = nullptr;
+		return;
+	}
+	
+	Widget = ActivationFunction();	
+}
+
 UCommonActivatableWidget* ANinjaCommonHUD::ShowInGameMenu()
 {
 	if (!IsValid(InGameMenuClass))

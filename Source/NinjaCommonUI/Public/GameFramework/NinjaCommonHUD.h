@@ -130,6 +130,12 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
 	virtual void ShowGameplayWidget();
 
+	/**
+	 * Toggles the provided activatable widget provided to the function.
+	 * The widget is most likely one of the internal widget instances.
+	 */
+	static void ToggleActivatableWidget(TObjectPtr<UCommonActivatableWidget>& Widget, const TFunction<UCommonActivatableWidget*()>& ActivationFunction);	
+	
 private:
 
 	/** All async operations happening. */
