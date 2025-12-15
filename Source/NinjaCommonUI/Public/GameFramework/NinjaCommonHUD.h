@@ -35,48 +35,48 @@ public:
 	 * Registers an asynchronous operation, represented by its gameplay tag.
 	 * This will most likely result in something like a "progress icon" to be shown in the UI.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	void AddAsynchronousOperation(FGameplayTag OperationTag);
 
 	/**
 	 * Removes an asynchronous operation, represented by its gameplay tag.
 	 * If there are no operations left, then the UI should remove the "progress icon".
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	void RemoveAsynchronousOperation(FGameplayTag OperationTag);
 	
 	/**
 	 * Shows the In-Game Menu (or "Pause Menu"), usually containing options such as settings, quit, etc.
 	 * Usually the widget is responsible for deactivating itself.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	UCommonActivatableWidget* ShowInGameMenu();
 	
 	/**
 	 * Shows the Inventory Window, instantiating one if necessary.
 	 * Usually the widget is responsible for deactivating itself. 
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	UCommonActivatableWidget* ShowInventory();
 
 	/**
 	 * Shows the Storage Window, instantiating one if necessary.
 	 * Usually the widget is responsible for deactivating itself. 
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	UCommonActivatableWidget* ShowStorage();
 	
 	/**
 	 * Shows the Loot Window, instantiating one if necessary.
 	 * Usually the widget is responsible for deactivating itself. 
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	UCommonActivatableWidget* ShowLoot();
 	
 	/**
 	 * Provides the Gameplay Widget instantiated by this HUD. 
 	 */
-	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	UNinjaCommonGameplayWidget* GetGameplayWidget() const;
 
 	/**
@@ -86,7 +86,7 @@ public:
 	 * @param WidgetClass	Widget class that will be pushed to the stack.
 	 * @return				The widget instance that has been pushed to the stack.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	virtual UCommonActivatableWidget* PushWidgetToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
 	
 protected:
@@ -127,7 +127,7 @@ protected:
 	/**
 	 * Shows the gameplay widget.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|HUD")
 	virtual void ShowGameplayWidget();
 
 	/**

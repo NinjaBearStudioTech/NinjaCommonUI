@@ -24,8 +24,9 @@ public class NinjaCommonUI : ModuleRules
             {
                 "CoreUObject",
                 "Engine",
+                "ModelViewViewModel",
                 "Slate",
-                "SlateCore"
+                "SlateCore", 
             }
         );
     }

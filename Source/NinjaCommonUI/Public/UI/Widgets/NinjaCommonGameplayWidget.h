@@ -9,7 +9,7 @@
 class UCommonActivatableWidgetStack;
 
 /**
- * Base gameplay widget that provides a stack that can be used to push widgets.
+ * Base NBS|Common UI|Widgets|Gameplay that provides a stack that can be used to push widgets.
  * 
  * Requires a Stack Component (UCommonActivatableWidgetStack) named "Stack" on the widget,
  * for Widget Binding. This will be the stack used internally for adding/remove operations.
@@ -31,7 +31,7 @@ public:
 	 * @param WidgetClass			Type of widget that will be created and added to the stack.
 	 * @return						The instance created and added to the stack. Can be used for removal.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|Widgets|Gameplay")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|Widgets|Gameplay")
 	virtual UCommonActivatableWidget* AddToStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, const TSubclassOf<UCommonActivatableWidget>& WidgetClass);
 
 	/**
@@ -40,7 +40,7 @@ public:
 	 * @param StackTag				Gameplay Tag representing the desired stack.
 	 * @param Widget				Widget instance that will be removed.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Ninja Common UI|Widgets|Gameplay")
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "NBS|Common UI|Widgets|Gameplay")
 	virtual void RemoveFromStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag, UCommonActivatableWidget* Widget);
 
 protected:
@@ -69,20 +69,20 @@ protected:
 	/**
 	 * Provides a stack related to a Gameplay Tag.
 	 */
-	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic, Category = "Gameplay Widget", meta=(ForceAsFunction))
+	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic, Category = "NBS|Common UI|Widgets|Gameplay", meta=(ForceAsFunction))
 	UCommonActivatableWidgetStack* GetStack(UPARAM(meta = (categories = "UI.Layer")) FGameplayTag StackTag) const;
 	
 	/**
 	 * Notifies that a widget has been added to the stack.
 	 */
-	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic, Category = "Gameplay Widget")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic, Category = "NBS|Common UI|Widgets|Gameplay")
 	void OnWidgetAddedToStack(FGameplayTag StackTag, UCommonActivatableWidget* Widget);
 	virtual void OnWidgetAddedToStack_Implementation(FGameplayTag StackTag, UCommonActivatableWidget* Widget) { }
 
 	/**
 	 * Notifies that a widget has been removed from the stack.
 	 */	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic,Category = "Gameplay Widget")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCosmetic,Category = "NBS|Common UI|Widgets|Gameplay")
 	void OnWidgetRemovedFromStack(FGameplayTag StackTag, UCommonActivatableWidget* Widget);
 	virtual void OnWidgetRemovedFromStack_Implementation(FGameplayTag StackTag, UCommonActivatableWidget* Widget) { }
 	

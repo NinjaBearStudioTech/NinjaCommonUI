@@ -77,50 +77,50 @@ protected:
 	/**
 	 * Registers all default Input Rows set to this widget.
 	 */
-	UFUNCTION(BlueprintCallable, Category="Nephelem|UI|Widgets")
+	UFUNCTION(BlueprintCallable, Category="NBS|Common UI|Widgets")
 	void RegisterDefaultInputRows();
 	
 	/**
 	 * Registers an Input Row and provides the handle for it.
 	 */
-	UFUNCTION(BlueprintCallable, Category="Nephelem|UI|Widgets")
+	UFUNCTION(BlueprintCallable, Category="NBS|Common UI|Widgets")
 	bool RegisterInputRow(const FNinjaDefaultInputActionRow& Binding, FNinjaInputActionBindingHandle& BindingHandle);
 
 	/**
 	 * Unregisters all bindings active on this widget.
 	 */
-	UFUNCTION(BlueprintCallable, Category="Nephelem|UI|Widgets")
+	UFUNCTION(BlueprintCallable, Category="NBS|Common UI|Widgets")
 	void UnregisterAllBindings();
 
 	/**
 	 * Unregisters the provided binding handle. 
 	 */
-	UFUNCTION(BlueprintCallable, Category="Nephelem|UI|Widgets")
+	UFUNCTION(BlueprintCallable, Category="NBS|Common UI|Widgets")
 	void UnregisterInputBinding(FNinjaInputActionBindingHandle BindingHandle);
 	
 	/**
 	 * Handles an action that has been completed action.
 	 * This includes default and hold actions that were completed.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "Nephelem")
+	UFUNCTION(BlueprintNativeEvent, Category = "NBS|Common UI|Widgets")
 	void HandleInputActionCompleted(FName ActionName);
 
 	/**
 	 * Handles a hold action that has started action.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "Nephelem")
+	UFUNCTION(BlueprintNativeEvent, Category = "NBS|Common UI|Widgets")
 	void HandleHoldInputActionStarted(FName ActionName);
 
 	/**
 	 * Handles the progress of a hold action.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "Nephelem")
+	UFUNCTION(BlueprintNativeEvent, Category = "NBS|Common UI|Widgets")
 	void HandleHoldInputActionProgressed(FName ActionName, float ElapsedTime);
 
 	/**
 	 * Handles a hold action that has been cancelled.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "Nephelem")
+	UFUNCTION(BlueprintNativeEvent, Category = "NBS|Common UI|Widgets")
 	void HandleHoldInputActionCancelled(FName ActionName);
 	
 private:
