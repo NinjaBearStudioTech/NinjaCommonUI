@@ -21,7 +21,10 @@ void ANinjaCommonHUD::BeginPlay()
 
 void ANinjaCommonHUD::HandleNewPawn(APawn* NewPawn)
 {
-	ShowGameplayWidget();
+	if (IsValid(NewPawn))
+	{
+		ShowGameplayWidget();	
+	}
 }
 
 void ANinjaCommonHUD::ShowGameplayWidget()
