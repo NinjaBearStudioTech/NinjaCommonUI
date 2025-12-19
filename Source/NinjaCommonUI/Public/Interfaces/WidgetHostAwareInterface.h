@@ -24,11 +24,11 @@ class NINJACOMMONUI_API IWidgetHostAwareInterface
 public:
 
 	/** Provides the actor that owns the widget component. */
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "NBS|Common UI|Widget Host Aware Interface")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "NBS|Common UI|Interfaces|Widget Host Aware")
 	AActor* GetWidgetHost() const;
 	
 	/** Sets the actor that owns the widget component. */
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "NBS|Common UI|Widget Host Aware Interface")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "NBS|Common UI|Interfaces|Widget Host Aware")
 	void SetWidgetHost(AActor* InteractionTarget);
 
 };

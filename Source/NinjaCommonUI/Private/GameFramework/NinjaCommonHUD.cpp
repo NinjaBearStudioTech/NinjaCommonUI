@@ -10,77 +10,52 @@ void ANinjaCommonHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ShowGameplayWidget();
+	
 	APlayerController* MyPlayerController = GetOwningPlayerController();
 	if (IsValid(MyPlayerController))
 	{
-		APawn* MyPawn = MyPlayerController->GetPawn();
-		if (IsValid(MyPawn))
-		{
-			HandleNewPawn(MyPawn);
-		}
-
-		// Still, we should get notified if the pawn ever changes.
 		MyPlayerController->GetOnNewPawnNotifier().AddUObject(this, &ThisClass::HandleNewPawn);
-	}	
-}
-
-void ANinjaCommonHUD::AddAsynchronousOperation(const FGameplayTag OperationTag)
-{
-	if (OperationTag.IsValid())
-	{
-		AsyncOperations.AddTag(OperationTag);
-		static constexpr bool bOperationRunning = true;
-		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
-	}
-}
-
-void ANinjaCommonHUD::RemoveAsynchronousOperation(const FGameplayTag OperationTag)
-{
-	if (OperationTag.IsValid())
-	{
-		AsyncOperations.RemoveTag(OperationTag);
-		const bool bOperationRunning = AsyncOperations.Num() > 0;
-		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
 	}
 }
 
 void ANinjaCommonHUD::HandleNewPawn(APawn* NewPawn)
 {
-	if (!IsValid(NewPawn))
-	{
-		return;
-	}
-
 	ShowGameplayWidget();
 }
 
 void ANinjaCommonHUD::ShowGameplayWidget()
 {
-	if (IsValid(GameplayWidgetClass))
+	APlayerController* PlayerController = GetOwningPlayerController();
+	if (!IsValid(PlayerController))
 	{
-		// Make sure that we'll create a Gameplay Widget if we don't have one yet!
-		if (!IsValid(GameplayWidget))
-		{
-			APlayerController* MyPlayerController = GetOwningPlayerController();
-			GameplayWidget = CreateWidget<UNinjaCommonGameplayWidget>(MyPlayerController, GameplayWidgetClass, "GameplayWidget");
-			CUI_LOG_ARGS(Log, "Created new Gameplay Widget %s.", *GetNameSafe(GameplayWidget));
-		}
-
-		if (ensureMsgf(IsValid(GameplayWidget), TEXT("Expected a Gameplay Widget Instance!")))
-		{
-			if (!GameplayWidget->IsInViewport())
-			{
-				CUI_LOG(Verbose, "Adding Gameplay Widget to viewport.");
-				GameplayWidget->AddToViewport();	
-			}
-
-			if (!GameplayWidget->IsActivated())
-			{
-				CUI_LOG(Verbose, "Activating Gameplay Widget.");
-				GameplayWidget->ActivateWidget();	
-			}	
-		}
+		CUI_LOG(Error, "Player Controller is unexpectedly missing!");
+		return;
 	}
+
+	if (!IsValid(GameplayWidgetClass))
+	{
+		return;
+	}
+
+	if (IsValid(GameplayWidget))
+	{
+		GameplayWidget->DeactivateWidget();
+		GameplayWidget->RemoveFromParent();
+		GameplayWidget = nullptr;
+	}	
+	
+	GameplayWidget = CreateWidget<UNinjaCommonGameplayWidget>(PlayerController, GameplayWidgetClass, TEXT("GameplayWidget"));
+	CUI_LOG_ARGS(Log, "Created new Gameplay Widget %s.", *GetNameSafe(GameplayWidget));
+
+	if (!IsValid(GameplayWidget))
+	{
+		CUI_LOG_ARGS(Error, "Unable to create the Gameplay Widget from class %s!", *GetNameSafe(GameplayWidgetClass));
+		return;
+	}
+
+	GameplayWidget->AddToViewport();
+	GameplayWidget->ActivateWidget();
 }
 
 void ANinjaCommonHUD::ToggleActivatableWidget(TObjectPtr<UCommonActivatableWidget>& Widget, const TFunction<UCommonActivatableWidget*()>& ActivationFunction)
@@ -154,4 +129,24 @@ UCommonActivatableWidget* ANinjaCommonHUD::PushWidgetToStack(const FGameplayTag 
 UNinjaCommonGameplayWidget* ANinjaCommonHUD::GetGameplayWidget() const
 {
 	return GameplayWidget;
+}
+
+void ANinjaCommonHUD::AddAsynchronousOperation(const FGameplayTag OperationTag)
+{
+	if (OperationTag.IsValid())
+	{
+		AsyncOperations.AddTag(OperationTag);
+		static constexpr bool bOperationRunning = true;
+		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
+	}
+}
+
+void ANinjaCommonHUD::RemoveAsynchronousOperation(const FGameplayTag OperationTag)
+{
+	if (OperationTag.IsValid())
+	{
+		AsyncOperations.RemoveTag(OperationTag);
+		const bool bOperationRunning = AsyncOperations.Num() > 0;
+		OnAsynchronousOperationNotificationStateChanged.Broadcast(AsyncOperations, bOperationRunning);
+	}
 }
