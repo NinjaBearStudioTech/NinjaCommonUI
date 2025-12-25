@@ -29,6 +29,6 @@ public:
 	
 	/** Sets the actor that owns the widget component. */
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "NBS|Common UI|Interfaces|Widget Host Aware")
-	void SetWidgetHost(AActor* InteractionTarget);
+	void SetWidgetHost(AActor* Host);
 
 };

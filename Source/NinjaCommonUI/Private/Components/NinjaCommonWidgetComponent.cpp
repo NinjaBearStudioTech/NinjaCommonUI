@@ -96,7 +96,7 @@ void UNinjaCommonWidgetComponent::TrySetHostToViewModels()
             if (IsValid(Source) && Source->Implements<UWidgetHostAwareInterface>())
             {
                 IWidgetHostAwareInterface::Execute_SetWidgetHost(Source, Host);
-            	CUI_LOG_ARGS(Verbose, "SetInteractionTarget SUCCESS: Source = %s, Host = %s", *GetNameSafe(Source), *GetNameSafe(Host));
+            	CUI_LOG_ARGS(Verbose, "Source = %s, Host = %s", *GetNameSafe(Source), *GetNameSafe(Host));
                 bAnySourceSet = true;
             }
         }
